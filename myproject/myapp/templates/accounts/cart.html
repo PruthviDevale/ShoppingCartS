@@ -1,0 +1,390 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Shopping Bag | StyleSphere</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', sans-serif;
+        }
+
+        body {
+            background: #fffafc;
+            color: #594454;
+        }
+
+        header {
+            background: white;
+            padding: 20px 8%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+        }
+
+        .logo {
+            font-size: 27px;
+            font-weight: bold;
+            color: #bd7898;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: #594454;
+            margin-left: 25px;
+            font-weight: 500;
+        }
+
+        nav a:hover {
+            color: #bd7898;
+        }
+
+        .container {
+            width: 85%;
+            max-width: 1150px;
+            margin: 45px auto;
+        }
+
+        h1 {
+            font-size: 30px;
+            margin-bottom: 8px;
+        }
+
+        .subtitle {
+            color: #967f91;
+            margin-bottom: 30px;
+        }
+
+        .cart-layout {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 25px;
+            align-items: start;
+        }
+
+        .cart-items {
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+        }
+
+        .cart-card {
+            background: white;
+            padding: 20px;
+            border-radius: 15px;
+            display: flex;
+            gap: 22px;
+            align-items: center;
+            box-shadow: 0 4px 18px rgba(189,120,152,0.10);
+        }
+
+        .product-image {
+            width: 125px;
+            height: 145px;
+            object-fit: cover;
+            border-radius: 12px;
+            background: #f4eaf0;
+        }
+
+        .product-info {
+            flex: 1;
+        }
+
+        .product-info h3 {
+            font-size: 18px;
+            margin-bottom: 8px;
+        }
+
+        .category {
+            color: #9b8495;
+            font-size: 14px;
+            margin-bottom: 8px;
+        }
+
+        .price {
+            color: #bd7898;
+            font-size: 19px;
+            font-weight: bold;
+            margin-bottom: 12px;
+        }
+
+        .quantity {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+
+        .quantity input {
+            width: 65px;
+            padding: 7px;
+            border: 1px solid #e5c9d8;
+            border-radius: 7px;
+            text-align: center;
+        }
+
+        .small-btn {
+            padding: 8px 13px;
+            border: none;
+            border-radius: 7px;
+            background: #eee3f7;
+            color: #594454;
+            cursor: pointer;
+        }
+
+        .small-btn:hover {
+            background: #e1cde9;
+        }
+
+        .remove {
+            color: #bd7898;
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-weight: 600;
+        }
+
+        .summary {
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 4px 18px rgba(189,120,152,0.10);
+        }
+
+        .summary h2 {
+            font-size: 21px;
+            margin-bottom: 22px;
+        }
+
+        .summary-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 17px;
+            color: #806b7b;
+        }
+
+        .total {
+            border-top: 1px solid #eee0e9;
+            padding-top: 18px;
+            margin-top: 18px;
+            font-size: 19px;
+            font-weight: bold;
+            color: #594454;
+        }
+
+        .checkout-btn {
+            display: block;
+            width: 100%;
+            text-align: center;
+            text-decoration: none;
+            background: #bd7898;
+            color: white;
+            padding: 14px;
+            border-radius: 9px;
+            margin-top: 22px;
+            font-size: 16px;
+            font-weight: bold;
+            border: none;
+            cursor: pointer;
+        }
+
+        .checkout-btn:hover {
+            background: #a65f81;
+        }
+
+        .continue {
+            display: inline-block;
+            margin-top: 25px;
+            color: #bd7898;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .empty-cart {
+            background: white;
+            padding: 55px 20px;
+            text-align: center;
+            border-radius: 15px;
+            box-shadow: 0 4px 18px rgba(189,120,152,0.10);
+        }
+
+        .empty-cart p {
+            margin: 15px 0;
+            color: #967f91;
+        }
+
+        @media(max-width: 800px) {
+            .cart-layout {
+                grid-template-columns: 1fr;
+            }
+
+            .container {
+                width: 92%;
+            }
+        }
+
+        @media(max-width: 500px) {
+            header {
+                padding: 18px 5%;
+                flex-wrap: wrap;
+                gap: 12px;
+            }
+
+            nav a {
+                margin-left: 10px;
+            }
+
+            .cart-card {
+                padding: 12px;
+                gap: 12px;
+            }
+
+            .product-image {
+                width: 95px;
+                height: 120px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <div class="logo">StyleSphere</div>
+
+    <nav>
+        <a href="{% url 'home' %}">Home</a>
+        <a href="{% url 'products' %}">Shop</a>
+        <a href="{% url 'cart' %}">Cart</a>
+    </nav>
+</header>
+
+<div class="container">
+
+    <h1>My Shopping Bag</h1>
+    <p class="subtitle">Your favourite styles are waiting for you.</p>
+
+    {% if cart_items %}
+
+    <div class="cart-layout">
+
+        <div class="cart-items">
+
+            {% for item in cart_items %}
+
+            <div class="cart-card">
+
+                <img src="{{ item.product.image_url }}"
+                     alt="{{ item.product.name }}"
+                     class="product-image">
+
+                <div class="product-info">
+
+                    <h3>{{ item.product.name }}</h3>
+
+                    <p class="category">
+                        {{ item.product.get_category_display }}
+                    </p>
+
+                    <p class="price">₹{{ item.product.price }}</p>
+
+                    <p>Size: {{ item.size }}</p>
+
+                    <form method="POST"
+                          action="{% url 'update_cart' item.key %}"
+                          class="quantity">
+
+                        {% csrf_token %}
+
+                        <label>Qty:</label>
+
+                        <input type="number"
+                               name="quantity"
+                               value="{{ item.quantity }}"
+                               min="1"
+                               max="10"
+                               required>
+
+                        <button type="submit" class="small-btn">
+                            Update
+                        </button>
+
+                    </form>
+
+                    <form method="POST"
+                          action="{% url 'remove_from_cart' item.key %}">
+
+                        {% csrf_token %}
+
+                        <button type="submit" class="remove">
+                            Remove
+                        </button>
+
+                    </form>
+
+                </div>
+
+            </div>
+
+            {% endfor %}
+
+        </div>
+
+        <div class="summary">
+
+            <h2>Price Details</h2>
+
+            <div class="summary-row">
+                <span>Items ({{ total_items }})</span>
+                <span>₹{{ total_price }}</span>
+            </div>
+
+            <div class="summary-row">
+                <span>Delivery</span>
+                <span>Free</span>
+            </div>
+
+            <div class="summary-row total">
+                <span>Total Amount</span>
+                <span>₹{{ total_price }}</span>
+            </div>
+
+            <a href="{% url 'checkout' %}" class="checkout-btn">
+                Proceed to Checkout
+            </a>
+
+        </div>
+
+    </div>
+
+    {% else %}
+
+    <div class="empty-cart">
+
+        <h2>Your Shopping Bag is Empty</h2>
+
+        <p>Looks like you haven't added anything to your bag yet.</p>
+
+        <a href="{% url 'products' %}" class="checkout-btn"
+           style="max-width:220px; margin:20px auto 0;">
+            Continue Shopping
+        </a>
+
+    </div>
+
+    {% endif %}
+
+    <a href="{% url 'products' %}" class="continue">
+        ← Continue Shopping
+    </a>
+
+</div>
+
+</body>
+</html>

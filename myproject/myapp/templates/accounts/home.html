@@ -1,0 +1,546 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StyleSphere | Fashion Store</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', sans-serif;
+        }
+
+        body {
+            background: #fffafc;
+            color: #594454;
+        }
+
+        /* NAVBAR */
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 8%;
+            background: white;
+            box-shadow: 0 3px 15px rgba(0,0,0,0.05);
+        }
+
+        .logo {
+            font-size: 29px;
+            font-weight: bold;
+            color: #bd7898;
+            letter-spacing: 1px;
+        }
+
+        nav {
+            display: flex;
+            align-items: center;
+            gap: 25px;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: #594454;
+            font-size: 15px;
+            font-weight: 500;
+        }
+
+        nav a:hover {
+            color: #bd7898;
+        }
+
+        /* HERO SECTION */
+
+        .hero {
+            min-height: 520px;
+            padding: 65px 8%;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            align-items: center;
+            gap: 40px;
+            background: linear-gradient(120deg, #f8eaf1, #f2eafa, #fff4f7);
+        }
+
+        .hero-content .tag {
+            display: inline-block;
+            background: white;
+            color: #bd7898;
+            padding: 9px 18px;
+            border-radius: 30px;
+            font-size: 13px;
+            letter-spacing: 1px;
+            margin-bottom: 22px;
+        }
+
+        .hero-content h1 {
+            font-size: 54px;
+            line-height: 1.2;
+            color: #594454;
+            margin-bottom: 20px;
+        }
+
+        .hero-content h1 span {
+            color: #bd7898;
+        }
+
+        .hero-content p {
+            font-size: 16px;
+            color: #806b7b;
+            line-height: 1.8;
+            max-width: 450px;
+            margin-bottom: 30px;
+        }
+
+        .shop-btn {
+            display: inline-block;
+            background: #bd7898;
+            color: white;
+            text-decoration: none;
+            padding: 14px 35px;
+            border-radius: 30px;
+            font-weight: 600;
+            transition: 0.3s;
+        }
+
+        .shop-btn:hover {
+            background: #a65f81;
+            transform: translateY(-3px);
+        }
+
+        /* HERO IMAGES */
+
+        .hero-images {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            align-items: center;
+        }
+
+        .hero-images img {
+            width: 100%;
+            height: 260px;
+            object-fit: cover;
+            border-radius: 100px 100px 15px 15px;
+            box-shadow: 0 10px 25px rgba(90,50,75,0.12);
+        }
+
+        .hero-images img:last-child {
+            margin-top: 55px;
+            height: 300px;
+            border-radius: 15px 100px 100px 15px;
+        }
+
+        /* FEATURES */
+
+        .features {
+            padding: 35px 8%;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            background: white;
+        }
+
+        .feature {
+            text-align: center;
+            padding: 18px;
+        }
+
+        .feature-icon {
+            font-size: 27px;
+            margin-bottom: 10px;
+        }
+
+        .feature h3 {
+            font-size: 15px;
+            margin-bottom: 5px;
+        }
+
+        .feature p {
+            font-size: 13px;
+            color: #967f91;
+        }
+
+        /* COLLECTION BANNER */
+
+        .collection {
+            margin: 65px 8%;
+            padding: 55px 35px;
+            border-radius: 20px;
+            text-align: center;
+            background: linear-gradient(120deg, #eee3f7, #f9e7ef);
+        }
+
+        .collection small {
+            color: #bd7898;
+            font-weight: bold;
+            letter-spacing: 3px;
+        }
+
+        .collection h2 {
+            font-size: 35px;
+            margin: 15px 0;
+        }
+
+        .collection p {
+            color: #806b7b;
+            margin-bottom: 25px;
+            line-height: 1.7;
+        }
+
+        /* TRENDING PRODUCTS */
+
+        .products-section {
+            padding: 20px 8% 70px;
+        }
+
+        .section-heading {
+            text-align: center;
+            margin-bottom: 35px;
+        }
+
+        .section-heading small {
+            color: #bd7898;
+            letter-spacing: 3px;
+            font-weight: bold;
+        }
+
+        .section-heading h2 {
+            font-size: 32px;
+            margin-top: 10px;
+        }
+
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 22px;
+        }
+
+        .product-card {
+            background: white;
+            border-radius: 14px;
+            overflow: hidden;
+            box-shadow: 0 4px 18px rgba(189,120,152,0.10);
+            transition: 0.3s;
+        }
+
+        .product-card:hover {
+            transform: translateY(-7px);
+            box-shadow: 0 10px 25px rgba(189,120,152,0.18);
+        }
+
+        .product-card img {
+            width: 100%;
+            height: 260px;
+            object-fit: cover;
+        }
+
+        .product-info {
+            padding: 17px;
+        }
+
+        .product-info h3 {
+            font-size: 15px;
+            margin-bottom: 8px;
+        }
+
+        .product-info p {
+            color: #967f91;
+            font-size: 13px;
+            margin-bottom: 10px;
+        }
+
+        .price {
+            color: #bd7898;
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .view-btn {
+            display: block;
+            text-align: center;
+            text-decoration: none;
+            background: #f8edf3;
+            color: #a65f81;
+            padding: 10px;
+            border-radius: 8px;
+            margin-top: 13px;
+            font-size: 13px;
+            font-weight: bold;
+        }
+
+        .view-btn:hover {
+            background: #bd7898;
+            color: white;
+        }
+
+        /* FOOTER */
+
+        footer {
+            background: #594454;
+            color: white;
+            padding: 35px 8%;
+            text-align: center;
+        }
+
+        footer h2 {
+            color: #f2cadd;
+            margin-bottom: 12px;
+        }
+
+        footer p {
+            color: #e8d8e2;
+            font-size: 13px;
+            line-height: 1.8;
+        }
+
+        /* RESPONSIVE */
+
+        @media(max-width: 900px) {
+            .hero {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .hero-content p {
+                margin-left: auto;
+                margin-right: auto;
+            }
+
+            .product-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media(max-width: 550px) {
+            header {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            nav {
+                gap: 13px;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            nav a {
+                font-size: 13px;
+            }
+
+            .hero-content h1 {
+                font-size: 38px;
+            }
+
+            .hero-images img {
+                height: 190px;
+            }
+
+            .hero-images img:last-child {
+                height: 220px;
+            }
+
+            .features {
+                grid-template-columns: 1fr;
+            }
+
+            .product-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 12px;
+            }
+
+            .product-card img {
+                height: 190px;
+            }
+
+            .collection h2 {
+                font-size: 26px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+
+<header>
+
+    <div class="logo">StyleSphere</div>
+
+    <nav>
+        <a href="{% url 'home' %}">Home</a>
+        <a href="{% url 'products' %}">Shop</a>
+        <a href="{% url 'cart' %}">Cart</a>
+        <a href="/wishlist/">Wishlist</a>
+
+        {% if user.is_authenticated %}
+            <a href="{% url 'logout' %}">Logout</a>
+        {% else %}
+            <a href="{% url 'login' %}">Login</a>
+        {% endif %}
+    </nav>
+
+</header>
+
+
+<!-- HERO SECTION -->
+
+<section class="hero">
+
+    <div class="hero-content">
+
+        <span class="tag">THE NEW FASHION EDIT</span>
+
+        <h1>
+            Discover Your<br>
+            <span>Own Style.</span>
+        </h1>
+
+        <p>
+            Fashion is more than what you wear.
+            It's how you express yourself.
+            Explore beautiful styles, fresh collections
+            and timeless fashion at StyleSphere.
+        </p>
+
+        <a href="{% url 'products' %}" class="shop-btn">
+            Explore Collection →
+        </a>
+
+    </div>
+
+
+    <div class="hero-images">
+
+        <img src="https://images.unsplash.com/photo-1483985988355-763728e1935b?w=700"
+             alt="Fashion collection">
+
+        <img src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=700"
+             alt="Elegant fashion">
+
+    </div>
+
+</section>
+
+
+<!-- FEATURES -->
+
+<section class="features">
+
+    <div class="feature">
+        <div class="feature-icon">✧</div>
+        <h3>Latest Collections</h3>
+        <p>Discover styles made for every moment.</p>
+    </div>
+
+    <div class="feature">
+        <div class="feature-icon">♡</div>
+        <h3>Beautiful Fashion</h3>
+        <p>Find outfits that express your personality.</p>
+    </div>
+
+    <div class="feature">
+        <div class="feature-icon">✿</div>
+        <h3>Easy Shopping</h3>
+        <p>Enjoy a smooth and simple shopping experience.</p>
+    </div>
+
+</section>
+
+
+<!-- PROMOTIONAL COLLECTION -->
+
+<section class="collection">
+
+    <small>STYLE YOUR MOMENT</small>
+
+    <h2>Fashion That Feels Like You</h2>
+
+    <p>
+        From everyday essentials to special occasion outfits,
+        find something beautiful for every version of you.
+    </p>
+
+    <a href="{% url 'products' %}" class="shop-btn">
+        Shop Now →
+    </a>
+
+</section>
+
+
+<!-- TRENDING PRODUCTS -->
+
+<section class="products-section">
+
+    <div class="section-heading">
+
+        <small>HANDPICKED FOR YOU</small>
+
+        <h2>Trending Now</h2>
+
+    </div>
+
+
+    <div class="product-grid">
+
+        {% for product in products %}
+
+        <div class="product-card">
+
+            <a href="{% url 'product_details' product.id %}">
+                <img src="{{ product.image_url }}"
+                     alt="{{ product.name }}">
+            </a>
+
+            <div class="product-info">
+
+                <h3>{{ product.name }}</h3>
+
+                <p>{{ product.get_category_display }}</p>
+
+                <div class="price">
+                    ₹{{ product.price }}
+                </div>
+
+                <a href="{% url 'product_details' product.id %}"
+                   class="view-btn">
+                    View Product
+                </a>
+
+            </div>
+
+        </div>
+
+        {% empty %}
+
+        <p style="grid-column: 1/-1; text-align:center;">
+            New collections are coming soon!
+        </p>
+
+        {% endfor %}
+
+    </div>
+
+</section>
+
+
+<!-- FOOTER -->
+
+<footer>
+
+    <h2>StyleSphere</h2>
+
+    <p>
+        Wear your confidence. Express your style.<br>
+        © 2026 StyleSphere. All Rights Reserved.
+    </p>
+
+</footer>
+
+</body>
+</html>

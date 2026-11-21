@@ -1,0 +1,607 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout | StyleSphere</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', sans-serif;
+        }
+
+        body {
+            background: #fffafc;
+            color: #594454;
+        }
+
+        /* HEADER */
+
+        header {
+            background: white;
+            padding: 20px 8%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+        }
+
+        .logo {
+            color: #bd7898;
+            font-size: 27px;
+            font-weight: bold;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: #594454;
+            margin-left: 22px;
+            font-weight: 500;
+        }
+
+        nav a:hover {
+            color: #bd7898;
+        }
+
+        /* MAIN CONTAINER */
+
+        .container {
+            width: 88%;
+            max-width: 1150px;
+            margin: 45px auto;
+        }
+
+        h1 {
+            margin-bottom: 8px;
+            font-size: 30px;
+        }
+
+        .subtitle {
+            color: #967f91;
+            margin-bottom: 30px;
+        }
+
+        .checkout-layout {
+            display: grid;
+            grid-template-columns: 1.4fr 1fr;
+            gap: 25px;
+            align-items: start;
+        }
+
+        /* CARDS */
+
+        .section-card {
+            background: white;
+            padding: 28px;
+            border-radius: 16px;
+            box-shadow: 0 4px 18px rgba(189,120,152,0.10);
+            margin-bottom: 22px;
+        }
+
+        h2 {
+            font-size: 21px;
+            margin-bottom: 22px;
+        }
+
+        /* DELIVERY FORM */
+
+        .form-group {
+            margin-bottom: 18px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        input, textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #e5c9d8;
+            border-radius: 8px;
+            outline: none;
+            font-size: 14px;
+            color: #594454;
+            background: white;
+        }
+
+        input:focus, textarea:focus {
+            border-color: #bd7898;
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 90px;
+        }
+
+        /* PAYMENT */
+
+        .payment-option {
+            border: 1px solid #e5c9d8;
+            border-radius: 10px;
+            padding: 16px;
+            background: #fffafc;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .payment-option input {
+            width: auto;
+            accent-color: #bd7898;
+        }
+
+        .payment-option label {
+            margin: 0;
+        }
+
+        /* ORDER SUMMARY */
+
+        .order-summary {
+            background: white;
+            padding: 25px;
+            border-radius: 18px;
+            box-shadow: 0 5px 22px rgba(189,120,152,0.12);
+            border: 1px solid #f3e5ed;
+            position: sticky;
+            top: 20px;
+        }
+
+        .order-summary h2 {
+            font-size: 23px;
+            color: #594454;
+            margin-bottom: 5px;
+        }
+
+        .summary-subtitle {
+            color: #a18b9c;
+            font-size: 13px;
+            margin-bottom: 22px;
+        }
+
+        .summary-products {
+            max-height: 320px;
+            overflow-y: auto;
+        }
+
+        .summary-product {
+            display: flex;
+            gap: 15px;
+            padding: 15px 0;
+            border-bottom: 1px solid #f2e7ed;
+        }
+
+        .summary-product img {
+            width: 85px;
+            height: 100px;
+            object-fit: cover;
+            border-radius: 10px;
+            background: #f5eaf0;
+        }
+
+        .summary-product-info {
+            flex: 1;
+        }
+
+        .summary-product-info h3 {
+            font-size: 15px;
+            margin-bottom: 7px;
+        }
+
+        .summary-product-info p {
+            color: #9a8495;
+            font-size: 12px;
+            margin-bottom: 6px;
+        }
+
+        .summary-product-info strong {
+            display: block;
+            color: #bd7898;
+            font-size: 16px;
+            margin-top: 9px;
+        }
+
+        /* PRICE DETAILS */
+
+        .price-details {
+            margin-top: 22px;
+        }
+
+        .price-details h3 {
+            font-size: 17px;
+            margin-bottom: 18px;
+        }
+
+        .price-row {
+            display: flex;
+            justify-content: space-between;
+            gap: 10px;
+            margin-bottom: 15px;
+            color: #806b7b;
+            font-size: 14px;
+        }
+
+        .free {
+            color: #4c9a72;
+            font-weight: bold;
+        }
+
+        .grand-total {
+            display: flex;
+            justify-content: space-between;
+            gap: 10px;
+            border-top: 1px dashed #dfc7d5;
+            padding-top: 18px;
+            margin-top: 20px;
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .grand-total strong {
+            color: #bd7898;
+        }
+
+        .saving-message {
+            background: #f8eff6;
+            color: #986c88;
+            padding: 12px;
+            border-radius: 9px;
+            text-align: center;
+            font-size: 12px;
+            margin-top: 20px;
+        }
+
+        /* BUTTON */
+
+        .place-order-btn {
+            display: block;
+            width: 100%;
+            border: none;
+            border-radius: 9px;
+            padding: 15px;
+            margin-top: 22px;
+            background: #bd7898;
+            color: white;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .place-order-btn:hover {
+            background: #a65f81;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-top: 25px;
+            color: #bd7898;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .message {
+            background: #f1e8f5;
+            padding: 12px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+        }
+
+        /* RESPONSIVE */
+
+        @media(max-width: 850px) {
+            .checkout-layout {
+                grid-template-columns: 1fr;
+            }
+
+            .order-summary {
+                position: static;
+            }
+        }
+
+        @media(max-width: 500px) {
+            header {
+                padding: 18px 5%;
+                flex-wrap: wrap;
+                gap: 12px;
+            }
+
+            nav a {
+                margin-left: 10px;
+            }
+
+            .container {
+                width: 92%;
+            }
+
+            .section-card, .order-summary {
+                padding: 20px;
+            }
+        }
+
+    </style>
+</head>
+
+<body>
+
+<!-- HEADER -->
+
+<header>
+
+    <div class="logo">StyleSphere</div>
+
+    <nav>
+        <a href="{% url 'home' %}">Home</a>
+        <a href="{% url 'products' %}">Shop</a>
+        <a href="{% url 'cart' %}">Cart</a>
+    </nav>
+
+</header>
+
+
+<!-- CHECKOUT PAGE -->
+
+<div class="container">
+
+    <h1>Checkout</h1>
+
+    <p class="subtitle">
+        Almost there! Enter your delivery details.
+    </p>
+
+    {% for message in messages %}
+        <div class="message">{{ message }}</div>
+    {% endfor %}
+
+
+    <div class="checkout-layout">
+
+
+        <!-- LEFT SIDE: ADDRESS AND PAYMENT -->
+
+        <div>
+
+            <form method="POST" action="{% url 'checkout' %}">
+
+                {% csrf_token %}
+
+
+                <!-- DELIVERY ADDRESS -->
+
+                <div class="section-card">
+
+                    <h2>Delivery Address</h2>
+
+                    <div class="form-group">
+
+                        <label for="full_name">Full Name</label>
+
+                        <input type="text"
+                               id="full_name"
+                               name="full_name"
+                               placeholder="Enter your full name"
+                               required>
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="email">Email Address</label>
+
+                        <input type="email"
+                               id="email"
+                               name="email"
+                               placeholder="Enter your email"
+                               required>
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="phone">Mobile Number</label>
+
+                        <input type="tel"
+                               id="phone"
+                               name="phone"
+                               placeholder="Enter 10-digit mobile number"
+                               pattern="[0-9]{10}"
+                               maxlength="10"
+                               required>
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="address">Full Address</label>
+
+                        <textarea id="address"
+                                  name="address"
+                                  placeholder="House number, street, area"
+                                  required></textarea>
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="city">City</label>
+
+                        <input type="text"
+                               id="city"
+                               name="city"
+                               placeholder="Enter your city"
+                               required>
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="pincode">PIN Code</label>
+
+                        <input type="text"
+                               id="pincode"
+                               name="pincode"
+                               placeholder="Enter 6-digit PIN code"
+                               pattern="[0-9]{6}"
+                               maxlength="6"
+                               required>
+
+                    </div>
+
+                </div>
+
+
+                <!-- PAYMENT METHOD -->
+
+                <div class="section-card">
+
+                    <h2>Payment Method</h2>
+
+                    <div class="payment-option">
+
+                        <input type="radio"
+                               id="razorpay"
+                               name="payment_method"
+                               value="razorpay"
+                               checked>
+
+                        <label for="razorpay">
+                            Razorpay – UPI, Cards and Net Banking
+                        </label>
+
+                    </div>
+
+                </div>
+
+
+                <button type="submit" class="place-order-btn">
+                    Continue to Payment
+                </button>
+
+            </form>
+
+        </div>
+
+
+
+        <!-- RIGHT SIDE: ORDER SUMMARY -->
+
+        <div class="order-summary">
+
+            <h2>Order Summary</h2>
+
+            <p class="summary-subtitle">
+                Review your shopping bag
+            </p>
+
+
+            <div class="summary-products">
+
+                {% for item in cart_items %}
+
+                <div class="summary-product">
+
+                    <img src="{{ item.product.image_url }}"
+                         alt="{{ item.product.name }}">
+
+                    <div class="summary-product-info">
+
+                        <h3>{{ item.product.name }}</h3>
+
+                        <p>
+                            {{ item.product.get_category_display }}
+                        </p>
+
+                        <p>
+                            Size: {{ item.size }} |
+                            Qty: {{ item.quantity }}
+                        </p>
+
+                        <strong>
+                            ₹{{ item.subtotal }}
+                        </strong>
+
+                    </div>
+
+                </div>
+
+                {% empty %}
+
+                    <p>Your shopping bag is empty.</p>
+
+                {% endfor %}
+
+            </div>
+
+
+            <!-- PRICE DETAILS -->
+
+            <div class="price-details">
+
+                <h3>Price Details</h3>
+
+
+                <div class="price-row">
+
+                    <span>Price ({{ total_items }} items)</span>
+
+                    <span>₹{{ total_price }}</span>
+
+                </div>
+
+
+                <div class="price-row">
+
+                    <span>Delivery Charges</span>
+
+                    <span class="free">FREE</span>
+
+                </div>
+
+
+                <div class="price-row">
+
+                    <span>Platform Fee</span>
+
+                    <span>₹0</span>
+
+                </div>
+
+
+                <div class="grand-total">
+
+                    <span>Total Amount</span>
+
+                    <strong>₹{{ total_price }}</strong>
+
+                </div>
+
+
+                <p class="saving-message">
+                    Your order is eligible for free delivery!
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <a href="{% url 'cart' %}" class="back-link">
+        ← Back to Shopping Bag
+    </a>
+
+</div>
+
+</body>
+</html>

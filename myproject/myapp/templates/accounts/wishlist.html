@@ -1,0 +1,282 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>StyleSphere | My Wishlist</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', sans-serif;
+        }
+
+        body {
+            background: #fff8fb;
+            color: #333;
+        }
+
+        header {
+            background: #f5dce8;
+            padding: 22px 7%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        header h1 {
+            color: #a64d79;
+            font-size: 28px;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: #6d4055;
+            margin-left: 22px;
+            font-weight: 600;
+        }
+
+        nav a:hover {
+            color: #c45c8a;
+        }
+
+        .page-title {
+            text-align: center;
+            padding: 40px 15px 20px;
+        }
+
+        .page-title h2 {
+            color: #a64d79;
+            font-size: 32px;
+            margin-bottom: 10px;
+        }
+
+        .page-title p {
+            color: #888;
+        }
+
+        .wishlist-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 28px;
+            padding: 30px 7%;
+        }
+
+        .product-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 18px rgba(150, 80, 110, 0.12);
+            transition: 0.3s;
+        }
+
+        .product-card:hover {
+            transform: translateY(-6px);
+        }
+
+        .product-card img {
+            width: 100%;
+            height: 280px;
+            object-fit: cover;
+            display: block;
+            background: #f7eaf0;
+        }
+
+        .product-info {
+            padding: 20px;
+        }
+
+        .product-info h3 {
+            color: #713e56;
+            font-size: 20px;
+            margin-bottom: 8px;
+        }
+
+        .category {
+            color: #999;
+            font-size: 14px;
+            text-transform: capitalize;
+            margin-bottom: 12px;
+        }
+
+        .price {
+            color: #b34f7b;
+            font-size: 21px;
+            font-weight: bold;
+            margin-bottom: 18px;
+        }
+
+        .buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .btn {
+            width: 100%;
+            padding: 11px;
+            border: none;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            text-align: center;
+        }
+
+        .cart-btn {
+            background: #b76e91;
+            color: white;
+        }
+
+        .cart-btn:hover {
+            background: #984e72;
+        }
+
+        .remove-btn {
+            background: #f8e4ed;
+            color: #a64d79;
+        }
+
+        .remove-btn:hover {
+            background: #f0cbdc;
+        }
+
+        .empty-wishlist {
+            text-align: center;
+            padding: 70px 20px;
+        }
+
+        .empty-wishlist h3 {
+            color: #a64d79;
+            font-size: 24px;
+            margin-bottom: 12px;
+        }
+
+        .empty-wishlist p {
+            color: #888;
+            margin-bottom: 22px;
+        }
+
+        .shop-btn {
+            display: inline-block;
+            background: #b76e91;
+            color: white;
+            text-decoration: none;
+            padding: 12px 25px;
+            border-radius: 8px;
+            font-weight: 600;
+        }
+
+        .shop-btn:hover {
+            background: #984e72;
+        }
+
+        footer {
+            background: #f5dce8;
+            text-align: center;
+            padding: 20px;
+            color: #75465c;
+            margin-top: 40px;
+        }
+
+        @media(max-width: 600px) {
+            header {
+                flex-direction: column;
+            }
+
+            nav a {
+                margin: 0 7px;
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <h1>StyleSphere</h1>
+
+    <nav>
+        <a href="{% url 'home' %}">Home</a>
+        <a href="{% url 'products' %}">Products</a>
+        <a href="{% url 'wishlist' %}">Wishlist</a>
+        <a href="{% url 'cart' %}">Cart</a>
+    </nav>
+</header>
+
+<section class="page-title">
+    <h2>My Wishlist ♡</h2>
+    <p>Your favourite fashion items, all in one place.</p>
+</section>
+
+{% if wishlist_items %}
+
+<section class="wishlist-container">
+
+    {% for product in wishlist_items %}
+
+    <div class="product-card">
+
+        <img src="{{ product.image_url }}"
+             alt="{{ product.name }}"
+             onerror="this.style.display='none';">
+
+        <div class="product-info">
+
+            <h3>{{ product.name }}</h3>
+
+            <p class="category">{{ product.category }}</p>
+
+            <p class="price">₹{{ product.price }}</p>
+
+            <div class="buttons">
+
+                <form method="POST" action="{% url 'add_to_cart' product.id %}">
+                    {% csrf_token %}
+                    <button type="submit" class="btn cart-btn">
+                        Add to Cart
+                    </button>
+                </form>
+
+                <form method="POST" action="{% url 'remove_from_wishlist' product.id %}">
+                    {% csrf_token %}
+                    <button type="submit" class="btn remove-btn">
+                        Remove from Wishlist
+                    </button>
+                </form>
+
+            </div>
+
+        </div>
+    </div>
+
+    {% endfor %}
+
+</section>
+
+{% else %}
+
+<div class="empty-wishlist">
+    <h3>Your Wishlist is Empty ♡</h3>
+    <p>You haven't added any products to your wishlist yet.</p>
+
+    <a href="{% url 'products' %}" class="shop-btn">
+        Explore Products
+    </a>
+</div>
+
+{% endif %}
+
+<footer>
+    <p>© 2026 StyleSphere. All Rights Reserved.</p>
+</footer>
+
+</body>
+</html>

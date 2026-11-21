@@ -1,0 +1,328 @@
+
+{% extends 'accounts/base.html' %}
+
+{% block content %}
+
+<style>
+
+.products-page {
+    padding: 35px 5%;
+    background: #f8faf6;
+    min-height: 100vh;
+}
+
+.page-title {
+    text-align: center;
+    color: #526d50;
+    font-size: 32px;
+    margin-bottom: 10px;
+}
+
+.page-subtitle {
+    text-align: center;
+    color: #777;
+    margin-bottom: 30px;
+}
+
+/* CATEGORY BUTTONS */
+
+.category-section {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin: 25px 0 30px;
+}
+
+.category-btn {
+    background: white;
+    color: #526d50;
+    border: 1px solid #789b70;
+    padding: 12px 22px;
+    border-radius: 25px;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 600;
+    transition: 0.3s;
+}
+
+.category-btn:hover,
+.category-btn.active {
+    background: #789b70;
+    color: white;
+}
+
+/* SEARCH SECTION */
+
+.filter-section {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 35px;
+}
+
+.filter-form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.filter-form input {
+    padding: 13px 16px;
+    border: 1px solid #d5ddcf;
+    border-radius: 8px;
+    font-size: 15px;
+    background: white;
+    outline: none;
+    width: 300px;
+}
+
+.search-btn,
+.reset-btn {
+    padding: 13px 25px;
+    border: none;
+    border-radius: 8px;
+    background: #789b70;
+    color: white;
+    text-decoration: none;
+    cursor: pointer;
+    font-size: 15px;
+}
+
+.search-btn:hover,
+.reset-btn:hover {
+    background: #526d50;
+}
+
+/* PRODUCT CARDS */
+
+.product-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+    gap: 25px;
+}
+
+.product-card {
+    background: white;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 3px 12px rgba(0,0,0,0.08);
+    transition: 0.3s;
+}
+
+.product-card:hover {
+    transform: translateY(-5px);
+}
+
+.product-card img {
+    width: 100%;
+    height: 280px;
+    object-fit: cover;
+}
+
+.product-info {
+    padding: 17px;
+}
+
+.product-info h3 {
+    color: #435c40;
+    margin-bottom: 8px;
+}
+
+.category {
+    color: #888;
+    font-size: 13px;
+    text-transform: capitalize;
+}
+
+.description {
+    color: #666;
+    font-size: 14px;
+    margin: 10px 0;
+}
+
+.price {
+    color: #526d50;
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 15px;
+}
+
+.view-btn {
+    display: block;
+    text-align: center;
+    background: #789b70;
+    color: white;
+    padding: 11px;
+    text-decoration: none;
+    border-radius: 7px;
+}
+
+.view-btn:hover {
+    background: #526d50;
+}
+
+.no-products {
+    text-align: center;
+    color: #777;
+    padding: 40px;
+    grid-column: 1 / -1;
+}
+
+/* MOBILE RESPONSIVE */
+
+@media(max-width: 600px) {
+
+    .filter-form {
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .filter-form input,
+    .filter-form button,
+    .filter-form a {
+        width: 100%;
+        text-align: center;
+    }
+
+    .category-btn {
+        padding: 10px 15px;
+    }
+
+}
+
+</style>
+
+
+<div class="products-page">
+
+    <h1 class="page-title">Our Collection</h1>
+
+    <p class="page-subtitle">
+        Discover your favourite fashion styles
+    </p>
+
+
+    <!-- CATEGORY BUTTONS -->
+
+    <div class="category-section">
+
+        <a href="{% url 'products' %}"
+           class="category-btn {% if not selected_category %}active{% endif %}">
+            All Products
+        </a>
+
+        <a href="{% url 'products' %}?category=women"
+           class="category-btn {% if selected_category == 'women' %}active{% endif %}">
+            Women Wear
+        </a>
+
+        <a href="{% url 'products' %}?category=men"
+           class="category-btn {% if selected_category == 'men' %}active{% endif %}">
+            Men Wear
+        </a>
+
+        <a href="{% url 'products' %}?category=ethnic"
+           class="category-btn {% if selected_category == 'ethnic' %}active{% endif %}">
+            Ethnic Wear
+        </a>
+
+        <a href="{% url 'products' %}?category=shoes"
+           class="category-btn {% if selected_category == 'shoes' %}active{% endif %}">
+            Shoes
+        </a>
+
+        <a href="{% url 'products' %}?category=accessories"
+           class="category-btn {% if selected_category == 'accessories' %}active{% endif %}">
+            Accessories
+        </a>
+
+    </div>
+
+
+    <!-- SEARCH BAR -->
+
+    <div class="filter-section">
+
+        <form method="GET"
+              action="{% url 'products' %}"
+              class="filter-form">
+
+            <input type="hidden"
+                   name="category"
+                   value="{{ selected_category }}">
+
+            <input type="text"
+                   name="search"
+                   placeholder="Search products..."
+                   value="{{ search_query }}">
+
+            <button type="submit" class="search-btn">
+                Search
+            </button>
+
+            <a href="{% url 'products' %}" class="reset-btn">
+                Reset
+            </a>
+
+        </form>
+
+    </div>
+
+
+    <!-- PRODUCT DISPLAY -->
+
+    <div class="product-grid">
+
+        {% for product in products %}
+
+        <div class="product-card">
+
+            <img src="{{ product.image_url }}"
+                 alt="{{ product.name }}">
+
+            <div class="product-info">
+
+                <h3>{{ product.name }}</h3>
+
+                <p class="category">
+                    {{ product.get_category_display }}
+                </p>
+
+                <p class="description">
+                    {{ product.description|truncatewords:15 }}
+                </p>
+
+                <p class="price">
+                    ₹{{ product.price }}
+                </p>
+
+                <a href="{% url 'product_details' product.id %}"
+                   class="view-btn">
+                    View Details
+                </a>
+
+            </div>
+
+        </div>
+
+        {% empty %}
+
+        <div class="no-products">
+
+            <h3>No Products Found!</h3>
+
+            <p>
+                Try another category or search for a different product.
+            </p>
+
+        </div>
+
+        {% endfor %}
+
+    </div>
+
+</div>
+
+{% endblock %}
